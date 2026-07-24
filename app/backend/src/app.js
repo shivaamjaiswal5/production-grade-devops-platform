@@ -20,4 +20,8 @@ app.get("/", (req, res) => {
     });
 });
 
+const errorHandler = require("./middleware/error.middleware");
+
+app.use(errorHandler);
+
 module.exports = app;
