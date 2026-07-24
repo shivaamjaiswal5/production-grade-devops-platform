@@ -3,6 +3,10 @@ kind: Deployment
 
 metadata:
   name: backend-deployment
+  namespace: production-devops
+  labels:
+    app: backend
+    project: production-devops
 
 spec:
   replicas: 2
@@ -10,18 +14,18 @@ spec:
   selector:
     matchLabels:
       app: backend
+      project: production-devops
 
   template:
-
     metadata:
       labels:
         app: backend
+        project: production-devops
 
     spec:
       containers:
         - name: backend
           image: devops-backend:v1
           imagePullPolicy: Never
-
           ports:
             - containerPort: 5000

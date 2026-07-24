@@ -3,10 +3,12 @@ kind: Service
 
 metadata:
   name: backend-service
+  namespace: production-devops
 
 spec:
   selector:
     app: backend
+    project: production-devops
 
   ports:
     - protocol: TCP
