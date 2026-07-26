@@ -168,44 +168,6 @@ The platform includes a complete observability stack.
 
 ---
 
-# 📸 Project Screenshots
-
-## Frontend
-
-![Frontend](screenshots/frontend.png)
-
----
-
-## Backend API
-
-![Backend](screenshots/backend-api.png)
-
----
-
-## Kubernetes Pods
-
-![Pods](screenshots/pods.png)
-
----
-
-## Horizontal Pod Autoscaler
-
-![HPA](screenshots/hpa.png)
-
----
-
-## Grafana Dashboard
-
-![Grafana](screenshots/grafana.png)
-
----
-
-## Prometheus
-
-![Prometheus](screenshots/prometheus.png)
-
----
-
 # 🚀 Getting Started
 
 ## Clone Repository
