@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: frontend-deployment
+  namespace: staging
+  labels:
+    app: frontend
+    project: staging
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: frontend
+      project: staging
+
+  template:
+    metadata:
+      labels:
+        app: frontend
+        project: staging
+
+    spec:
+      containers:
+        - name: frontend
+          image: production-grade-devops-platform-frontend:latest
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 80

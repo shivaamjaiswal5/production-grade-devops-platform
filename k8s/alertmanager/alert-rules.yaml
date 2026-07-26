@@ -1,0 +1,57 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+
+metadata:
+  name: production-devops-alerts
+  namespace: production-devops
+
+spec:
+  groups:
+    - name: production-devops.rules
+
+      rules:
+
+        - alert: HighCPUUsage
+          expr: rate(container_cpu_usage_seconds_total{namespace="production-devops"}[5m]) > 0.8
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High CPU Usage"
+            description: "CPU usage is above 80% for more than 2 minutes."
+
+        - alert: HighMemoryUsage
+          expr: (container_memory_working_set_bytes{namespace="production-devops"} / container_spec_memory_limit_bytes{namespace="production-devops"}) > 0.8
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High Memory Usage"
+            description: "Memory usage is above 80% for more than 2 minutes."
+
+        - alert: PodRestartingFrequently
+          expr: increase(kube_pod_container_status_restarts_total{namespace="production-devops"}[10m]) > 3
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Pod Restarting Frequently"
+            description: "A pod has restarted more than 3 times in the last 10 minutes."
+
+        - alert: PodDown
+          expr: kube_pod_status_phase{namespace="production-devops",phase="Running"} == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Pod Down"
+            description: "One or more pods are not running."
+
+        - alert: HighHTTPResponseTime
+          expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 0.5
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High Response Time"
+            description: "95th percentile response time is above 500 ms."
