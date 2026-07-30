@@ -10,18 +10,21 @@ spec:
     receiver: email-notifications
     groupBy:
       - alertname
-    groupWait: 30s
-    groupInterval: 5m
-    repeatInterval: 1h
+    groupWait: 10s
+    groupInterval: 30s
+    repeatInterval: 1m
+    continue: true
 
   receivers:
     - name: email-notifications
       emailConfigs:
         - to: wolfcrew3240@gmail.com
-          from: shivaamjaiswal5@gmail.com
+          from: wolfcrew3240@gmail.com
           smarthost: smtp.gmail.com:587
-          authUsername: shivaamjaiswal5@gmail.com
+          authUsername: wolfcrew3240@gmail.com
+          authIdentity: wolfcrew3240@gmail.com
           authPassword:
             name: alertmanager-email-secret
             key: smtp-password
           requireTLS: true
+          sendResolved: true
